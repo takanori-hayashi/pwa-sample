@@ -1,12 +1,13 @@
 const STATIC_DATA = [
-  'index.html',
+  '/index.html',
+  '/about/index.html',
   '/assets/js/app.js',
   '/assets/images/image2.jpg',
 ];
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open('cache_v1')
+self.addEventListener('install', e => {
+  ev.waitUntil(
+    caches.open('airhorner')
       .then(cache => {
         return cache.addAll(STATIC_DATA);
       })
@@ -14,7 +15,6 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
-  console.log(event.request.url);
   event.respondWith(
     caches.match(event.request)
       .then(response => {
