@@ -1,24 +1,17 @@
-const STATIC_DATA = [
-  '/index.html',
-  '/about/index.html',
+const CACHE_NAME = 'my-site-cache-v1';
+const urlToCache = [
+  '/',
+  '/about/',
   '/assets/js/app.js',
   '/assets/images/image2.jpg',
 ];
 
-self.addEventListener('install', e => {
-  ev.waitUntil(
-    caches.open('airhorner')
-      .then(cache => {
-        return cache.addAll(STATIC_DATA);
-      })
-  );
-});
-
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        return response || fetch(event.request);
+self.addEventListener('install', function(event) {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(function(cache) {
+        console.log('Opened cache');
+        return cache.addAll(urlToCache);
       })
   );
 });
